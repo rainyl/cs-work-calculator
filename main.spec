@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['src\\main.py'],
-             pathex=['F:\\python\\pyqt\\project\\c#_calculator'],
+             pathex=['F:\\python\\pyqt\\project\\cs-work-calculator'],
              binaries=[],
              datas=[],
              hiddenimports=[],

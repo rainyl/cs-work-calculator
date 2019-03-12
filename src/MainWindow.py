@@ -2,7 +2,8 @@ from src.Ui_MainWindow import Ui_MainWindow
 from src.config import Ledt, Chkb
 from src.generator import Generator
 from src.score import Calculator
-from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem, QLabel
+from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 import logging
 import sys
@@ -121,6 +122,14 @@ class MainWindow(Ui_MainWindow):
                 logging.warning("ledt is None")
 
         self.set_ledt()
+
+    def set_table_icon(self, answers):
+        for i in range(len(answers)):
+            if answers[i][0] == answers[i][1]:
+                self.table_problems.setItem(i, 2, QTableWidgetItem(QIcon(":/icons/right"), " "))
+            else:
+                self.table_problems.setItem(i, 2, QTableWidgetItem(QIcon(":/icons/wrong"), " "))
+
     # 生成页面结束
 
     # 评测页面开始
@@ -139,6 +148,9 @@ class MainWindow(Ui_MainWindow):
             rate = calculator.rate()
             self.ledt_score.setText(str(score))
             self.ledt_correct_rate.setText(str(rate*100) + ' %')
+
+            ans = calculator.answers_calculated
+            self.set_table_icon(ans)
     # 评测页面结束
 
     # 判断配置是否正确

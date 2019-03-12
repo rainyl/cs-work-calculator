@@ -253,6 +253,6 @@ class Ui_MainWindow(QMainWindow):
     def on_time_updated(self):
         current_time = QDateTime.currentDateTime()
         self.copyright.setText(
-            "<a href='https://github.com/rainyl'>©2019 Rainyl All Rights Reserved " + "</a>" + current_time.toString(
+            "<a href='https://github.com/rainyl'>©2019 Rainyl's Team All Rights Reserved " + "</a>" + current_time.toString(
                 " hh:mm:ss"))
 

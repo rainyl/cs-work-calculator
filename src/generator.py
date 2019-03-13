@@ -16,14 +16,13 @@ class Generator(object):
         exp_all = []
         for a in range(self.amount):
             tmp = []
+            op = self.operators[random.randint(0, len(self.operators) - 1)]
             for item in range(self.item_num):
                 num = None
-                if self.decimal:
-                    num = round(random.uniform(1, self.less_than), self.decimals)
-                else:
+                if not self.decimal or op == '%':
                     num = random.randint(1, self.less_than)
-                # op = self.operators_set[random.randint(0, len(self.operators)-1)]
-                op = self.operators[random.randint(0, len(self.operators)-1)]
+                else:
+                    num = round(random.uniform(1, self.less_than), self.decimals)
                 tmp.append(num)
                 tmp.append(op)
             exp_all.append(tmp[:-1])

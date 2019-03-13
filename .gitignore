@@ -1,4 +1,8 @@
 .idea/
 build/
 venv-win/
+venv/
+src/__pycache__
 dist/
+*.spec
+tmp/

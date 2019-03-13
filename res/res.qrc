@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="images">
+    <file alias="Icon">Icon.jpg</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file alias="right">right.png</file>
+    <file alias="wrong">wrong.png</file>
+  </qresource>
+  <qresource prefix="text"/>
+</RCC>

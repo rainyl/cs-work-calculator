@@ -3,7 +3,7 @@ from src.config import Ledt, Chkb, Spbx, Others
 from src.generator import Generator
 from src.score import Calculator
 from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem, QLCDNumber
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QIntValidator
 from PyQt5.QtCore import Qt, QTimer
 import logging
 import sys
@@ -100,6 +100,8 @@ class MainWindow(Ui_MainWindow):
 
     # 生成页面槽函数
     def on_btn_generate_clicked(self):
+        self.timer.stop()
+        self.timer_count = self.config_args[Spbx.spbx_timer]
         if self.is_config_ok():
             self.problems = []
             if len(self.config_args) == 0:
@@ -109,15 +111,17 @@ class MainWindow(Ui_MainWindow):
                 self.problems = generator.generate()
                 logging.warning(self.problems)
 
-            self.table_problems.setRowCount(0)
-            self.table_problems.setRowCount(self.config_args[Ledt.ledt_amount])
-            self.table_problems.setHorizontalHeaderLabels(['题目', '解答'])
             # self.table_problems.clearContents()
-            for e in self.problems:
-                row = self.problems.index(e)
-                e_ = [str(i) for i in e]
+            # self.table_problems.setRowCount(0)
+            self.table_problems.clear()
+            self.table_problems.setRowCount(self.config_args[Ledt.ledt_amount])
+            self.table_problems.setHorizontalHeaderLabels(['题目', '解答', '对错'])
+            for row in range(len(self.problems)):
+                e_ = [str(i) for i in self.problems[row]]
                 self.table_problems.setItem(row, 0, QTableWidgetItem("   ".join(e_) + "   =   "))
-                self.table_problems.setCellWidget(row, 1, QLineEdit())
+                ledt = QLineEdit()
+                ledt.setValidator(QIntValidator())
+                self.table_problems.setCellWidget(row, 1, ledt)
         self.timer.start(1000)
 
     def on_btn_submit_clicked(self):

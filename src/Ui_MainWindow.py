@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QStatusBar, QTabWidget, QTabl
 from PyQt5.QtCore import QMetaObject, QCoreApplication, QRegExp, QTimer, QDateTime, Qt
 from PyQt5.QtGui import QRegExpValidator, QIntValidator, QIcon, QTextOption
 from src.config import Ledt, Chkb, Txe, Others, Spbx
-from src.SSSetter import DarkBlue, Colorful
+from src.SSSetter import FlatDark, DarkBlue, Blue, Bf, FlatWhite, LightBlue, LightBlack
 from res.res import *
 
 
@@ -24,10 +24,10 @@ class Ui_MainWindow(QMainWindow):
         self.regValidator = QRegExpValidator(QRegExp('(\+|\-|\*|\/){1, 4}'), self)
 
     def setup(self):
-        self.setStyleSheet(Colorful.getButtonQSS("#3498DB", "#FFFFFF", "#5DACE4", "#E5FEFF", "#2483C7", "#A0DAFB"))
+        self.setStyleSheet(FlatWhite.get_qss())
         self.setup_content()
         self.setup_global()
-        self.setWindowIcon(QIcon(":/images/icon"))
+        self.setWindowIcon(QIcon(":/images/Icon"))
 
     def setup_content(self):
         self.setup_generate()
@@ -85,7 +85,8 @@ class Ui_MainWindow(QMainWindow):
 
         self.spbx_timer = QSpinBox()
         self.spbx_timer.setMinimum(0)
-        self.spbx_timer.setStatusTip(_translate("How much time to do the test，set to 0 to close".encode('utf-8'), "定时计算，单位为秒，设为0关闭".encode('utf-8')))
+        self.spbx_timer.setMaximum(3600)
+        self.spbx_timer.setStatusTip(_translate("How much time to do the test，set to 0 to close".encode('utf-8'), "定时计算，单位为秒，设为0关闭,最大3600".encode('utf-8')))
         self.spbx_timer.setObjectName(Spbx.spbx_timer)
 
         self.chkb_decimal = QCheckBox("Include decimals")
@@ -142,11 +143,12 @@ class Ui_MainWindow(QMainWindow):
 
         # self.lbl_timer_generator = QLabel("Hi~")
         self.lcd_timer = QLCDNumber()
+        self.lcd_timer.setMinimumHeight(66)
         self.lcd_timer.display(0)
-        self.lcd_timer.setStyleSheet('''
-            color: #FFFFFF;
-            background-color: #000000;
-        ''')
+        # self.lcd_timer.setStyleSheet('''
+        #     color: #FFFFFF;
+        #     background-color: #000000;
+        # ''')
 
         btn_layout = QHBoxLayout()
         btn_layout.addWidget(self.btn_generate)

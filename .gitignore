@@ -3,6 +3,8 @@ build/
 venv-win/
 venv/
 src/__pycache__/
+src/*.css
+src/other/
 res/__pycache__/
 dist/
 *.spec

@@ -6,10 +6,13 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5.QtWidgets import QMainWindow, QWidget, QStatusBar, QTabWidget, QTableWidgetItem, QVBoxLayout, QGridLayout, QLabel, QPushButton, QGroupBox, QLineEdit, QCheckBox, QFormLayout, QHBoxLayout, QTableWidget, QTextEdit
+from PyQt5.QtWidgets import (QMainWindow, QWidget, QStatusBar, QTabWidget, QTableWidgetItem,
+                             QVBoxLayout, QGridLayout, QLabel, QPushButton, QGroupBox, QLineEdit,
+                             QCheckBox, QFormLayout, QHBoxLayout, QTableWidget, QTextEdit, QSpinBox,
+                             QLCDNumber)
 from PyQt5.QtCore import QMetaObject, QCoreApplication, QRegExp, QTimer, QDateTime
 from PyQt5.QtGui import QRegExpValidator, QIntValidator, QIcon
-from src.config import Ledt, Chkb, Txe, Others
+from src.config import Ledt, Chkb, Txe, Others, Spbx
 from res.res import *
 
 
@@ -47,6 +50,7 @@ class Ui_MainWindow(QMainWindow):
         self.lbl_item_num = QLabel("Item Num")
         self.lbl_operator = QLabel("Operators")
         self.lbl_decimal = QLabel("Decimals")
+        self.lbl_timer = QLabel("Timer")
 
         self.ledt_amount = QLineEdit()
         self.ledt_amount.setValidator(QIntValidator(0, 1000))
@@ -77,12 +81,18 @@ class Ui_MainWindow(QMainWindow):
         self.ledt_decimal.setToolTip(_translate("How many decimals", "小数位数"))
         self.ledt_decimal.setStatusTip(_translate("How many decimals", "小数位数"))
 
+        self.spbx_timer = QSpinBox()
+        self.spbx_timer.setMinimum(0)
+        self.spbx_timer.setStatusTip(_translate("How much time to do the test，set to 0 to close".encode('utf-8'), "定时计算，设为0关闭".encode('utf-8')))
+        self.spbx_timer.setObjectName(Spbx.spbx_timer)
+
         self.chkb_decimal = QCheckBox("Include decimals")
         self.chkb_decimal.setObjectName(Chkb.chkb_decimal)
 
         fmlt_left = QFormLayout()
         fmlt_left.addRow(self.lbl_amount, self.ledt_amount)
         fmlt_left.addRow(self.lbl_less_than, self.ledt_less_than)
+        fmlt_left.addRow(self.lbl_timer, self.spbx_timer)
         fmlt_left.addRow(self.chkb_decimal)
 
         fmlt_right = QFormLayout()
@@ -128,11 +138,21 @@ class Ui_MainWindow(QMainWindow):
         self.table_problems.setCellWidget(0, 1, ledt)
         self.table_problems.setColumnWidth(0, 200)
 
+        # self.lbl_timer_generator = QLabel("Hi~")
+        self.lcd_timer = QLCDNumber()
+        self.lcd_timer.display(0)
+        self.lcd_timer.setStyleSheet('''
+            color: #FFFFFF;
+            background-color: #000000;
+        ''')
+
         btn_layout = QHBoxLayout()
         btn_layout.addWidget(self.btn_generate)
         btn_layout.addWidget(self.btn_submit)
         layout_generate = QVBoxLayout()
         layout_generate.addWidget(self.table_problems)
+        layout_generate.addWidget(self.lcd_timer)
+        # layout_generate.addWidget(self.lbl_timer_generator)
         layout_generate.addLayout(btn_layout)
         self.grpbox_generate = QGroupBox(self)
         self.grpbox_generate.setLayout(layout_generate)
@@ -208,10 +228,10 @@ class Ui_MainWindow(QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
-        self.timer = QTimer(self)
-        self.timer.start(1000)
+        self.timer_time = QTimer(self)
+        self.timer_time.start(1000)
         # 时钟设置开始
-        self.timer.timeout.connect(self.on_time_updated)
+        self.timer_time.timeout.connect(self.on_time_updated)
         # 时钟设置结束
         self.copyright = QLabel()
         self.copyright.setStatusTip("https://github.com/rainyl")
@@ -240,6 +260,7 @@ class Ui_MainWindow(QMainWindow):
         self.lbl_score_total.setText(_translate("score", "分数"))
         self.lbl_cocrrect_rate.setText(_translate("correct rate", "正确率"))
         self.lbl_cocrrect_rate_total.setText(_translate("correct rate", "正确率"))
+        self.lbl_timer.setText(_translate("Timer", "定时"))
 
         self.grpbox_left.setTitle(_translate("this time", "本次"))
         self.grpbox_right.setTitle(_translate("total", "合计"))

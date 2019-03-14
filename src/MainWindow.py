@@ -1,10 +1,10 @@
 from src.Ui_MainWindow import Ui_MainWindow
-from src.config import Ledt, Chkb
+from src.config import Ledt, Chkb, Spbx
 from src.generator import Generator
 from src.score import Calculator
-from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem
+from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem, QLCDNumber
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 import logging
 import sys
 
@@ -12,15 +12,21 @@ import sys
 class MainWindow(Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.init_slots()
         self.config_args = {
             Chkb.chkb_decimal: False,
             Ledt.ledt_decimal: 0,
             Ledt.ledt_amount: 10,
             Ledt.ledt_less_than: 20,
             Ledt.ledt_item_num: 2,
+            Spbx.spbx_timer: 0,
             Ledt.ledt_operator: ['+', '-']
+
         }
+        self.timer = QTimer()
+        self.timer_count = None
+
+        self.init_slots()
+
         self.problems = None
         self.answers = []
 
@@ -28,12 +34,18 @@ class MainWindow(Ui_MainWindow):
         pass
 
     def init_slots(self):
+        # 全局
+        self.timer.timeout.connect(self.on_timer_timeout)
+        # 全局结束
+
         # 设置页面
         self.ledt_amount.editingFinished.connect(self.on_ledt_edited)
         self.ledt_less_than.editingFinished.connect(self.on_ledt_edited)
         self.ledt_item_num.editingFinished.connect(self.on_ledt_edited)
         self.ledt_operator.editingFinished.connect(self.on_ledt_edited)
         self.ledt_decimal.editingFinished.connect(self.on_ledt_edited)
+
+        self.spbx_timer.editingFinished.connect(self.on_spbx_edited)
 
         self.chkb_decimal.stateChanged.connect(self.on_chkb_decimal_changed)
 
@@ -76,6 +88,13 @@ class MainWindow(Ui_MainWindow):
 
         logging.warning(self.config_args)
 
+    def on_spbx_edited(self):
+        sender = self.sender()
+        if sender.objectName() == Spbx.spbx_timer:
+            print("spinbox edit finished")
+            self.config_args[Spbx.spbx_timer] = sender.value()
+            self.timer_count = self.config_args[Spbx.spbx_timer]
+
     def on_chkb_decimal_changed(self, state):
         if state == Qt.Checked:
             self.config_args[self.sender().objectName()] = True
@@ -107,6 +126,7 @@ class MainWindow(Ui_MainWindow):
                 e_ = [str(i) for i in e]
                 self.table_problems.setItem(row, 0, QTableWidgetItem("   ".join(e_) + "   =   "))
                 self.table_problems.setCellWidget(row, 1, QLineEdit())
+        self.timer.start(1000)
 
     def on_btn_submit_clicked(self):
         self.answers = []
@@ -153,12 +173,25 @@ class MainWindow(Ui_MainWindow):
             self.set_table_icon(ans)
     # 评测页面结束
 
+    # timer
+    def on_timer_timeout(self):
+        if self.timer_count is None or self.config_args[Spbx.spbx_timer] == 0:
+            return
+        if self.timer_count == 0:
+            QMessageBox.warning(self, "Warning", "time up")
+            self.on_btn_submit_clicked()
+            self.timer.stop()
+            return
+        self.timer_count = self.timer_count - 1
+        self.lcd_timer.display(self.timer_count)
+        # self.lbl_timer_generator.setText("<b"str(self.timer_count))
+
     # 判断配置是否正确
     def is_config_ok(self):
         keys = self.config_args.keys()
         # 暂时简单用参数名称数量判断，，，详细太麻烦了
         # TODO 详细参数判断与错误提示
-        if len(keys) != 6:
+        if len(keys) != 7:
             QMessageBox.warning(self, "Warning", "Config Error!!!")
             return False
         return True

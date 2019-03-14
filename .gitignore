@@ -3,6 +3,7 @@ build/
 venv-win/
 venv/
 src/__pycache__/
+res/__pycache__/
 dist/
 *.spec
 tmp/

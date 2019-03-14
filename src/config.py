@@ -40,6 +40,7 @@ class Txe(object):
     txe_about = "txe_about"
     about = '''
         <p>---{}---</p>
+        <p align:center >‘不知道叫什么名字’ 小组特别出品</p>
         <p>作者：刘彦龙、何婧源、白汝冰</p>
         <p>编程：刘彦龙</p>
         <p>界面设计：何婧源、白汝冰</p>

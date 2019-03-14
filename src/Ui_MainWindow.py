@@ -10,9 +10,10 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QStatusBar, QTabWidget, QTabl
                              QVBoxLayout, QGridLayout, QLabel, QPushButton, QGroupBox, QLineEdit,
                              QCheckBox, QFormLayout, QHBoxLayout, QTableWidget, QTextEdit, QSpinBox,
                              QLCDNumber)
-from PyQt5.QtCore import QMetaObject, QCoreApplication, QRegExp, QTimer, QDateTime
-from PyQt5.QtGui import QRegExpValidator, QIntValidator, QIcon
+from PyQt5.QtCore import QMetaObject, QCoreApplication, QRegExp, QTimer, QDateTime, Qt
+from PyQt5.QtGui import QRegExpValidator, QIntValidator, QIcon, QTextOption
 from src.config import Ledt, Chkb, Txe, Others, Spbx
+from src.SSSetter import DarkBlue, Colorful
 from res.res import *
 
 
@@ -23,6 +24,7 @@ class Ui_MainWindow(QMainWindow):
         self.regValidator = QRegExpValidator(QRegExp('(\+|\-|\*|\/){1, 4}'), self)
 
     def setup(self):
+        self.setStyleSheet(Colorful.getButtonQSS("#3498DB", "#FFFFFF", "#5DACE4", "#E5FEFF", "#2483C7", "#A0DAFB"))
         self.setup_content()
         self.setup_global()
         self.setWindowIcon(QIcon(":/images/icon"))
@@ -83,7 +85,7 @@ class Ui_MainWindow(QMainWindow):
 
         self.spbx_timer = QSpinBox()
         self.spbx_timer.setMinimum(0)
-        self.spbx_timer.setStatusTip(_translate("How much time to do the test，set to 0 to close".encode('utf-8'), "定时计算，设为0关闭".encode('utf-8')))
+        self.spbx_timer.setStatusTip(_translate("How much time to do the test，set to 0 to close".encode('utf-8'), "定时计算，单位为秒，设为0关闭".encode('utf-8')))
         self.spbx_timer.setObjectName(Spbx.spbx_timer)
 
         self.chkb_decimal = QCheckBox("Include decimals")
@@ -213,7 +215,8 @@ class Ui_MainWindow(QMainWindow):
         self.txe_about = QTextEdit()
         self.txe_about.setDisabled(True)
         self.txe_about.setText(Txe.about)
-
+        # self.txe_about.setStyleSheet(DarkBlue.get_qss())
+        self.txe_about.document().setDefaultTextOption(QTextOption(Qt.AlignHCenter))
 
     def setup_global(self):
         self.setObjectName("MainWindow")

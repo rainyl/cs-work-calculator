@@ -64,6 +64,7 @@ class MainWindow(Ui_MainWindow):
         self.ledt_less_than.clear()
         self.ledt_item_num.clear()
         self.ledt_operator.clear()
+        self.spbx_timer.clear()
         logging.warning(len(self.config_args))
 
     def on_ledt_edited(self):

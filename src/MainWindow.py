@@ -1,5 +1,5 @@
 from src.Ui_MainWindow import Ui_MainWindow
-from src.config import Ledt, Chkb
+from src.config import Ledt, Chkb, Others
 from src.generator import Generator
 from src.score import Calculator
 from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem
@@ -13,14 +13,7 @@ class MainWindow(Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.init_slots()
-        self.config_args = {
-            Chkb.chkb_decimal: False,
-            Ledt.ledt_decimal: 0,
-            Ledt.ledt_amount: 10,
-            Ledt.ledt_less_than: 20,
-            Ledt.ledt_item_num: 2,
-            Ledt.ledt_operator: ['+', '-']
-        }
+        self.config_args = Others.config_args
         self.problems = None
         self.answers = []
 

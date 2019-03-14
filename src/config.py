@@ -1,7 +1,3 @@
-class Others(object):
-    main_window_title = "不知道起啥名字"
-
-
 class Ledt(object):
     ledt_amount = "ledt_amount"
     ledt_less_than = "ledt_less_than"
@@ -22,6 +18,18 @@ class Btn(object):
     btn_generate = "btn_generate"
 
 
+class Others(object):
+    main_window_title = "不知道起啥名字"
+    config_args = {
+        Chkb.chkb_decimal: False,
+        Ledt.ledt_decimal: 0,
+        Ledt.ledt_amount: 10,
+        Ledt.ledt_less_than: 20,
+        Ledt.ledt_item_num: 2,
+        Ledt.ledt_operator: ['+', '-']
+    }
+
+
 class Txe(object):
     txe_about = "txe_about"
     about = '''
@@ -32,5 +40,3 @@ class Txe(object):
         <p>专业：2016级水文与水资源工程</p>
         <p>Github: <a href='https://github.com/rainyl'>https://github.com/rainyl</p>
     '''.format(Others.main_window_title)
-
-

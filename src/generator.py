@@ -1,5 +1,6 @@
 from src.config import Ledt, Chkb
 import random
+import re
 
 
 class Generator(object):
@@ -14,13 +15,15 @@ class Generator(object):
 
     def generate(self):
         exp_all = []
+        num = None
         for a in range(self.amount):
             tmp = []
-            op = self.operators[random.randint(0, len(self.operators) - 1)]
             for item in range(self.item_num):
-                num = None
-                if not self.decimal or op == '%':
-                    num = random.randint(1, self.less_than)
+                # type_ = re.split('\'', str(type(num)))[1]
+                op = self.operators[random.randint(0, len(self.operators) - 1)]
+                # if not self.decimal or (op == '%' and type_ == 'int'):
+                if not self.decimal:
+                        num = random.randint(1, self.less_than)
                 else:
                     num = round(random.uniform(1, self.less_than), self.decimals)
                 tmp.append(num)

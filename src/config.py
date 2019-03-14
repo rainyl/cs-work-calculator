@@ -2,6 +2,10 @@ class Others(object):
     main_window_title = "不知道起啥名字"
 
 
+class Spbx(object):
+    spbx_timer = "spbx_timer"
+
+
 class Ledt(object):
     ledt_amount = "ledt_amount"
     ledt_less_than = "ledt_less_than"

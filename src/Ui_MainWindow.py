@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QStatusBar, QTabWidget, QTabl
 from PyQt5.QtCore import QMetaObject, QCoreApplication, QRegExp, QTimer, QDateTime, Qt
 from PyQt5.QtGui import QRegExpValidator, QIntValidator, QIcon, QTextOption
 from src.config import Ledt, Chkb, Txe, Others, Spbx
-from src.SSSetter import FlatDark, DarkBlue, Blue, Bf, FlatWhite, LightBlue, LightBlack
+from src.SSSetter import FlatDark, DarkBlue, Blue, Bf, FlatWhite, LightBlue, LightBlack, Dark, White
 from res.res import *
 
 
@@ -24,7 +24,7 @@ class Ui_MainWindow(QMainWindow):
         self.regValidator = QRegExpValidator(QRegExp('(\+|\-|\*|\/){1, 4}'), self)
 
     def setup(self):
-        self.setStyleSheet(FlatWhite.get_qss())
+        self.setStyleSheet(White.get_qss())
         self.setup_content()
         self.setup_global()
         self.setWindowIcon(QIcon(":/images/Icon"))
@@ -130,21 +130,19 @@ class Ui_MainWindow(QMainWindow):
         self.btn_generate = QPushButton("&Generate")
         self.btn_submit = QPushButton('&Submit')
 
-        lbl = QLabel("hi")
-        ledt = QLineEdit()
         self.table_problems = QTableWidget()
         self.table_problems.setColumnCount(3)
-        self.table_problems.setRowCount(1)
         self.table_problems.setSortingEnabled(False)
+        self.table_problems.setStyleSheet('''
+        background-color:#FFFFFF;
+        ''')
         self.table_problems.setHorizontalHeaderLabels(['题目', '解答', '对错'])
-        self.table_problems.setCellWidget(0, 0, lbl)
-        self.table_problems.setCellWidget(0, 1, ledt)
         self.table_problems.setColumnWidth(0, 200)
 
         # self.lbl_timer_generator = QLabel("Hi~")
         self.lcd_timer = QLCDNumber()
         self.lcd_timer.setMinimumHeight(66)
-        self.lcd_timer.display(0)
+        self.lcd_timer.display("00")
         # self.lcd_timer.setStyleSheet('''
         #     color: #FFFFFF;
         #     background-color: #000000;

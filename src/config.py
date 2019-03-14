@@ -1,7 +1,3 @@
-class Others(object):
-    main_window_title = "不知道起啥名字"
-
-
 class Spbx(object):
     spbx_timer = "spbx_timer"
 
@@ -24,6 +20,20 @@ class Chkb(object):
 
 class Btn(object):
     btn_generate = "btn_generate"
+
+
+class Others(object):
+    main_window_title = "不知道起啥名字"
+    config_args = {
+        Chkb.chkb_decimal: False,
+        Ledt.ledt_decimal: 0,
+        Ledt.ledt_amount: 10,
+        Ledt.ledt_less_than: 20,
+        Ledt.ledt_item_num: 2,
+        Spbx.spbx_timer: 0,
+        Ledt.ledt_operator: ['+', '-']
+
+    }
 
 
 class Txe(object):

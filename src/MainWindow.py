@@ -1,5 +1,5 @@
 from src.Ui_MainWindow import Ui_MainWindow
-from src.config import Ledt, Chkb, Spbx
+from src.config import Ledt, Chkb, Spbx, Others
 from src.generator import Generator
 from src.score import Calculator
 from PyQt5.QtWidgets import QMessageBox, QLineEdit, QTableWidgetItem, QLCDNumber
@@ -12,16 +12,7 @@ import sys
 class MainWindow(Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.config_args = {
-            Chkb.chkb_decimal: False,
-            Ledt.ledt_decimal: 0,
-            Ledt.ledt_amount: 10,
-            Ledt.ledt_less_than: 20,
-            Ledt.ledt_item_num: 2,
-            Spbx.spbx_timer: 0,
-            Ledt.ledt_operator: ['+', '-']
-
-        }
+        self.config_args = Others.config_args
         self.timer = QTimer()
         self.timer_count = None
 
@@ -141,6 +132,7 @@ class MainWindow(Ui_MainWindow):
             else:
                 logging.warning("ledt is None")
 
+        self.timer.stop()
         self.set_ledt()
 
     def set_table_icon(self, answers):
@@ -180,7 +172,6 @@ class MainWindow(Ui_MainWindow):
         if self.timer_count == 0:
             QMessageBox.warning(self, "Warning", "time up")
             self.on_btn_submit_clicked()
-            self.timer.stop()
             return
         self.timer_count = self.timer_count - 1
         self.lcd_timer.display(self.timer_count)

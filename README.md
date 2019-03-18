@@ -5,3 +5,9 @@
 
 * 作者：rainyl
 * 感谢：HJY
+
+* 图标来源 [icon-icons.com](https://icon-icons.com/zh/download/52939/ICO/512/)
+#### 环境要求
+PyQt5.12 pyinstaller
+#### 打包方法
+pyinstaller -w -F -i res/feather-pen_icon-icons.com_52939.ico src/main.py

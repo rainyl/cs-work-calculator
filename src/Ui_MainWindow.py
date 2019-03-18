@@ -24,7 +24,7 @@ class Ui_MainWindow(QMainWindow):
         self.regValidator = QRegExpValidator(QRegExp('(\+|\-|\*|\/){1, 4}'), self)
 
     def setup(self):
-        self.setStyleSheet(White.get_qss())
+        self.setStyleSheet(FlatWhite.get_qss())
         self.setup_content()
         self.setup_global()
         self.setWindowIcon(QIcon(":/images/Icon"))

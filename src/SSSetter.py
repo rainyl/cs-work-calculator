@@ -451,12 +451,12 @@ class FlatDark(object):
         
         QTableView,QTableWidget::item:selected,QListView::item:selected,QTreeView::item:selected{
         color:#BEC0C2;
-        background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #404244,stop:1 #404244);
+        background:#00BFFF;
         }
         
         QTableView,QTableWidget::item:hover,QListView::item:hover,QTreeView::item:hover{
         color:#BEC0C2;
-        background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #262829,stop:1 #262829);
+        background:#00BFFF;
         }
         
         QTableView,QTableWidget::item,QListView::item,QTreeView::item{
@@ -1101,12 +1101,12 @@ class DarkBlue(object):
         
         QTableView,QTableWidget::item:selected,QListView::item:selected,QTreeView::item:selected{
         color:#7AAFE3;
-        background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #133050,stop:1 #133050);
+        background:#00BFFF;
         }
         
         QTableView,QTableWidget::item:hover,QListView::item:hover,QTreeView::item:hover{
         color:#7AAFE3;
-        background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #033967,stop:1 #033967);
+        background:#00BFFF;
         }
         
         QTableView,QTableWidget::item,QListView::item,QTreeView::item{
@@ -5773,7 +5773,7 @@ QTableView::item {
         border-bottom: 1px solid rgb(111, 156, 207);
 }
 QTableView::item:selected {
-        background: rgba(255, 255, 255, 100);
+        background: rgba(30, 144, 255, 100);
 }
 QTableView::item:selected:!active {
         color: rgb(65, 65, 65);
@@ -5983,7 +5983,7 @@ QCheckBox::indicator {
         height: 20px;
 }
 QCheckBox::indicator:unchecked {
-        image: url(:/White/checkBox);
+        image: url(':/White/checkBox');
 }
 QCheckBox::indicator:unchecked:hover {
         image: url(:/White/checkBoxHover);

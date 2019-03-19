@@ -16,9 +16,9 @@ class Generator(object):
         exp_all = []
         for a in range(self.amount):
             tmp = []
-            op = self.operators[random.randint(0, len(self.operators) - 1)]
             for item in range(self.item_num):
                 num = None
+                op = self.operators[random.randint(0, len(self.operators) - 1)]
                 if not self.decimal or op == '%':
                     num = random.randint(1, self.less_than)
                 else:
